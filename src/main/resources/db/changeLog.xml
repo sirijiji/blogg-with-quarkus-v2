@@ -1,0 +1,20 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="aboungnarith" id="1">
+        <createTable tableName="POST">
+            <column name="ID" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE" type="VARCHAR2(200)"/>
+            <column name="CONTENT" type="TEXT"/>
+            <column name="CREATION_DATE" type="DATE"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
