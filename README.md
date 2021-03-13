@@ -39,7 +39,10 @@ ${GRAALVM_HOME}/bin/gu install native-image
 
 ## Creating a native executable
 
-You can create a native executable using: 
+You can create a native executable using (windows CMD): 
+- open windows cmd (if on windows)
+- change directory to this project
+- run this command line
 ```shell script
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat" && mvn package -Pnative
 ```
@@ -49,6 +52,10 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./mvnw package -Pnative -Dquarkus.native.container-build=true
 ```
 
+## Creating a docker image with the native executable
+```shell script
+docker build -f src/main/docker/Dockerfile.native -t sirijiji/blogg-with-quarkus2 .
+```
 You can then execute your native executable with: `./target/blogg-with-quarkus-v2-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
