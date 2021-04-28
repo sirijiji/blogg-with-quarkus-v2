@@ -15,7 +15,7 @@ import java.util.List;
 public class PostResource {
 
     @Inject
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
     @GET
     public List<Post> list() {

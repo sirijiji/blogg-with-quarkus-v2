@@ -1,7 +1,7 @@
 package org.bloggsiri.controller;
 
 import io.quarkus.qute.TemplateInstance;
-import io.quarkus.qute.api.CheckedTemplate;
+import io.quarkus.qute.CheckedTemplate;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
