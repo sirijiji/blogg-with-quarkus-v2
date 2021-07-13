@@ -2,6 +2,7 @@ package org.bloggsiri.repository;
 
 import org.apache.commons.io.FileUtils;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.io.File;
 import java.io.IOException;
@@ -18,20 +19,23 @@ public class BlogPostRepository {
 
     private static String POST_RESOURCES = "md/blogpost/";
 
-    public List<String> fetchPosts() throws IOException, URISyntaxException {
+    private List<String> posts;
 
+    @PostConstruct
+    public void init() throws IOException, URISyntaxException {
         URL resource = getClass().getClassLoader().getResource(POST_RESOURCES);
+        System.out.println(resource.toURI().toString());
         File file = Paths.get(resource.toURI()).toFile();
 
         Collection<File> files = FileUtils.listFiles(file, null, false);
 
-        List<String> posts = new ArrayList<>();
+        posts = new ArrayList<>();
         for (File postFile : files) {
             posts.add(Files.readString(postFile.toPath()));
         }
-
-       return posts;
-
     }
 
+    public List<String> getPosts() {
+        return posts;
+    }
 }

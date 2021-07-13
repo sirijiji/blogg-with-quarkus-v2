@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{name}</title>
+    <title>{welcomeModel.name}</title>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 </head>
 <body>
@@ -10,7 +11,7 @@
 <section class="hero is-info">
     <div class="hero-body">
         <p class="title">
-            {title}
+            {welcomeModel.title}
         </p>
         <p class="subtitle">
             Info subtitle
@@ -20,7 +21,7 @@
 
 <div class="container">
 
-        {#for post in blogposts}
+        {#for post in welcomeModel.blogposts}
             <article class="message mt-3">
                 <div class="message-header">
                     <p>Info title</p>

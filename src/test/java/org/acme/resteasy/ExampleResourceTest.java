@@ -22,9 +22,9 @@ public class ExampleResourceTest {
     @Test
     public void testHelloEndpoint() throws IOException, URISyntaxException {
 
-        List<String> strings = blogPostRepository.fetchPosts();
+//        List<String> strings = blogPostRepository.fetchPosts();
 
-        System.out.println(strings);
+//        System.out.println(strings);
 //        given()
 //          .when().get("/resteasy/hello")
 //          .then()

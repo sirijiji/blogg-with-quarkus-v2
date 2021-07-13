@@ -3,6 +3,7 @@ package org.bloggsiri.controller;
 import io.quarkus.qute.RawString;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.CheckedTemplate;
+import org.bloggsiri.model.WelcomeModel;
 import org.bloggsiri.repository.BlogPostRepository;
 import org.common.MarkdownParserHandler;
 
@@ -30,22 +31,23 @@ public class WelcomeResource {
 
     @CheckedTemplate
     public static class Templates {
-        public static native TemplateInstance welcome();
+        public static native TemplateInstance welcome(WelcomeModel welcomeModel);
     }
 
     @GET
     @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get(@QueryParam("name") String name) throws IOException, URISyntaxException {
+    public TemplateInstance get(@QueryParam("name") String name){
 
-//        String s = markdownParserHandler.parserMarkdown("This is *Sparta*");
-
-        List<RawString> blogsposts = blogPostRepository.fetchPosts().stream()
+        List<RawString> blogsposts = blogPostRepository.getPosts().stream()
                 .map(markdownParserHandler::parserMarkdown)
                 .map(RawString::new)
                 .collect(toList());
 
-        return Templates.welcome().data("name", "Welcome page")
-                .data("title","my personal blog")
-                .data("blogposts",blogsposts);
+        WelcomeModel welcomeModel = new WelcomeModel();
+        welcomeModel.setName("Welcome page");
+        welcomeModel.setTitle("my personal blog");
+        welcomeModel.setBlogposts(blogsposts);
+
+        return Templates.welcome(welcomeModel);
     }
 }
