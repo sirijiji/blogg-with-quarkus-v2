@@ -1,7 +1,7 @@
 package org.bloggsiri.controller;
 
-import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.CheckedTemplate;
+import io.quarkus.qute.TemplateInstance;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,7 +12,8 @@ import java.util.List;
 
 @Path("welcome")
 public class WelcomeResource {
-    @CheckedTemplate
+
+    @CheckedTemplate(requireTypeSafeExpressions = false)
     public static class Templates {
         public static native TemplateInstance welcome();
     }
@@ -20,6 +21,8 @@ public class WelcomeResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance get(@QueryParam("name") String name) {
+
+
 
         List<String> blogsposts = List.of("post1", "post2");
 
