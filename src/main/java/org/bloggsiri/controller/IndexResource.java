@@ -19,10 +19,14 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 @Path("/")
 public class IndexResource {
@@ -37,22 +41,14 @@ public class IndexResource {
     public TemplateInstance get(@QueryParam("name") String name) throws IOException {
 
 
-        List<RawString> blogsposts = Files.list(new File("target/classes/markdown/posts").toPath())
+        List<java.nio.file.Path> orederedFiles = Files.list(new File("target/classes/markdown/posts").toPath())
+                .sorted(Comparator.comparingInt(file -> Integer.parseInt(file.toFile().getName().split("\\.")[0].split("_")[1])))
+                .collect(toList());
+
+        System.out.println(orederedFiles);
+
+        List<RawString> blogsposts = orederedFiles.stream().sorted(Comparator.reverseOrder())
                 .map(path -> {
-
-                    System.out.println(path.toAbsolutePath());
-                    System.out.println(path.getFileName());
-                    System.out.println(path.toFile().getName());
-                    BasicFileAttributes attr = null;
-                    try {
-                        attr = Files.readAttributes(path.toFile().toPath(), BasicFileAttributes.class);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    System.out.println("creationTime: " + attr.creationTime());
-                    System.out.println("lastAccessTime: " + attr.lastAccessTime());
-                    System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
 
                     InputStreamReader inputStreamReader = new InputStreamReader(getClass().getResourceAsStream("/markdown/posts/" + path.toFile().getName()), StandardCharsets.UTF_8);
                     String post = new BufferedReader(inputStreamReader)
